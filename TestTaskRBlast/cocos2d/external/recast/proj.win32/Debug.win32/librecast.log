@@ -6,10 +6,10 @@
   DetourPathCorridor.cpp
   DetourPathQueue.cpp
   DetourProximityGrid.cpp
-E:\projects\RBlast\TestTaskRBlast\cocos2d\external\recast\DetourCrowd\DetourObstacleAvoidance.cpp(334,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   DetourTileCache.cpp
   DetourTileCacheBuilder.cpp
   DetourAlloc.cpp
+E:\projects\RBlast\TestTaskRBlast\cocos2d\external\recast\DetourCrowd\DetourObstacleAvoidance.cpp(334,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   DetourCommon.cpp
   DetourNavMesh.cpp
   DetourNavMeshBuilder.cpp

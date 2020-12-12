@@ -24,6 +24,8 @@
 
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "Button.h"
+#include "LongPushButton.h"
 
 USING_NS_CC;
 
@@ -83,38 +85,37 @@ bool HelloWorld::init()
     /////////////////////////////
     // 3. add your codes below...
 
-    // add a label shows "Hello World"
-    // create and initialize a label
+    auto button = Button::create();
+    button->setStateColors(Color4F::GREEN, Color4F::RED, Color4F::YELLOW);
+    button->setContentSize(Size(100, 30));
+    button->setPosition(Vec2(visibleSize.width/2 - button->getContentSize().width/2, visibleSize.height - 100));
+    button->setSafeZone(30, 30, 30, 30);
+    button->setExpandZone(10, 10, 10, 10);
+    button->setCallback([](){ cocos2d::log("Button pressed!"); });
+    button->setDebugMode(true);
+    this->addChild(button);
 
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    if (label == nullptr)
-    {
-        problemLoading("'fonts/Marker Felt.ttf'");
-    }
-    else
-    {
-        // position the label on the center of the screen
-        label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                origin.y + visibleSize.height - label->getContentSize().height));
+    auto buttonListener = EventListenerCustom::create("ButtonPress", [](EventCustom* event) {
+        cocos2d::log("Button pressed! - event");
+    });
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(buttonListener, button);
 
-        // add the label as a child to this layer
-        this->addChild(label, 1);
-    }
+    auto longPushButton = LongPushButton::create();
+    longPushButton->setTimeout(1);
+    longPushButton->setStateColors(Color4F::GREEN, Color4F::RED, Color4F::ORANGE, Color4F::YELLOW);
+    longPushButton->setContentSize(Size(100, 30));
+    longPushButton->setPosition(Vec2(visibleSize.width / 2 - button->getContentSize().width / 2, visibleSize.height - 300));
+    longPushButton->setSafeZone(30, 30, 30, 30);
+    longPushButton->setExpandZone(10, 10, 10, 10);
+    longPushButton->setCallback([]() { cocos2d::log("LongPushButton pressed!"); });
+    longPushButton->setDebugMode(true);
+    this->addChild(longPushButton);
 
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-    if (sprite == nullptr)
-    {
-        problemLoading("'HelloWorld.png'");
-    }
-    else
-    {
-        // position the sprite on the center of the screen
-        sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    auto longPushButtonListener = EventListenerCustom::create("LongPushButtonPress", [](EventCustom* event) {
+        cocos2d::log("LongPushButton pressed! - event");
+    });
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(longPushButtonListener, longPushButton);
 
-        // add the sprite as a child to this layer
-        this->addChild(sprite, 0);
-    }
     return true;
 }
 
